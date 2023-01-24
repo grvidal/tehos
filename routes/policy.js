@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET about page. */
+/* GET policy page. */
 router.get('/', function(req, res, next) {
-  res.render('about');
+  res.render('policy');
 });
 
 module.exports = router;

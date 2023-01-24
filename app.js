@@ -8,6 +8,8 @@ var layouts = require('express-ejs-layouts');
 var indexRouter = require('./routes/index');
 var aboutRouter = require('./routes/about');
 var contactRouter = require('./routes/contact');
+var helpRouter= require('./routes/help');
+var policyRouter = require('./routes/policy');
 
 var app = express();
 
@@ -25,6 +27,8 @@ app.use(layouts);
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
+app.use('/help', helpRouter);
+app.use('/policy', policyRouter);
 
 
 // catch 404 and forward to error handler
