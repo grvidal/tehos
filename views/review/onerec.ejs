@@ -1,0 +1,50 @@
+<h1> 
+    Details 
+</h1>
+
+<table>
+     <tr> 
+         <td> Review ID: </td> 
+         <td> <%= onerec.review_id %> </td> 
+    </tr>
+     <tr> 
+         <td> Reviewdate: </td> 
+         <td> <%= onerec.reviewdate %> </td> 
+    </tr>
+     <tr> 
+         <td> Comments: </td> 
+         <td> <%= onerec.comments %> </td> 
+    </tr>
+     <tr> 
+         <td> Rating: </td> 
+         
+         <td> <%= onerec.rating %> </td> 
+    </tr>
+     <tr> 
+         <td> Status: </td> 
+         <td> 
+            <select  name="status"  required>
+                <option selected>
+                    <%= onerec.status %>
+                </option>
+                <option>
+                    Publish
+                </option>
+                <option>
+                    Contingent
+                </option>
+                <option>
+                    Coming Soon
+                </option>
+            </select> 
+        </td> 
+    </tr>
+     <tr> 
+         <td> Customer ID: </td>
+        <td> <%= onerec.customer_id %> </td> 
+    </tr>
+     <tr> 
+         <td> Product ID: </td> 
+         <td> <%= onerec.product_id %> </td> 
+    </tr>
+</table>

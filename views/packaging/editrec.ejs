@@ -1,0 +1,49 @@
+<h1> 
+    Edit Packaging
+</h1>
+
+<form action="/packaging/save" method="post">
+    <input type="hidden" name="packaging_id" value="<%= onerec.packaging_id %>" >
+   
+    <table>
+        <tr> 
+            <td> Tracking Number: </td> 
+            <td> 
+                <input type="text" name="tracking_number" value="<%= onerec.tracking_number %>" required> 
+            </td> 
+        </tr> 
+        <tr> 
+            <td> Shipper: </td> 
+            <td> 
+                <input type="text" name="shipper" value="<%= onerec.shipper %>" required> 
+            </td> 
+        </tr>
+        <tr> 
+            <td> Packaging Weight: </td> 
+            <td> 
+                <input type="text" name="packagingweight" value="<%= onerec.packagingweight %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Packaging Length: </td> 
+            <td> 
+                <input type="text" name="packaginglength" value="<%= onerec.packaginglength %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Packaging Width: </td> 
+            <td> 
+                <input type="text" name="packagingwidth" value="<%= onerec.packagingwidth %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Order ID: </td> 
+            <td> 
+                <input type="number" name="order_id" value="<%= onerec.order_id %>" required> 
+            </td>
+        </tr>
+    </table>
+    <button type="submit">
+        Save
+    </button>
+</form>

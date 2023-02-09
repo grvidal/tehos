@@ -1,0 +1,49 @@
+<% if (allrecs.length > 0) {%>
+    <table border="1">
+            <tr>
+                <th> Packaging ID </th>
+                <th> Tracking Number </th>
+                <th> Shipper </th>
+                <th> Packaging Weight </th>
+                <th> Packaging Length </th>
+                <th> packagingwidth </th>
+                <th> order_id </th>
+            </tr>
+        <% allrecs.forEach((recref, index) => { %>
+            <tr>
+                <td><%= recref.packaging_id %></td>
+                <td><%= recref.tracking_number %></td>
+                <td><%= recref.shipper %></td>
+                <td><%= recref.packagingweight %></td>
+                <td><%= recref.packaginglength %></td>
+                <td><%= recref.packagingwidth %></td>
+                <td><%= recref.order_id %></td>
+                <td>
+                    <a href='/packaging/<%= recref.packaging_id %>/show'> 
+                        Details
+                    </a>
+                </td>
+                <td>
+                    <a href='/packaging/<%= recref.packaging_id %>/edit'>
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <a href='/packaging/<%= recref.packaging_id %>/delete' onclick="return confirm('Are you sure you want to delete this record?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+<% } 
+
+else { %>
+    <p>Not Records Available</p>
+<% } %>
+
+<p> 
+    <a href='/packaging/addrecord'>
+        Add New
+    </a> 
+</p>

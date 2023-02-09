@@ -1,0 +1,47 @@
+<h1> 
+    New Record
+</h1>
+
+<form action="/packaging" method="post">
+    <table>
+        <tr> 
+            <td> Tracking Number: </td> 
+            <td> 
+                <input type="text" name="tracking_number" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Shipper: </td> 
+            <td> 
+                <input type="text" name="shipper" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Packaging Weight: </td> 
+            <td> 
+                <input type="text" name="packagingweight" required>  
+            </td>
+        </tr>
+        <tr> 
+            <td> Packaging Length: </td> 
+            <td> 
+                <input type="text" name="packaginglength" required>  
+            </td>
+        </tr>
+        <tr> 
+            <td> Packaging Width: </td> 
+            <td> 
+                <input type="text" name="packagingwidth" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Order ID: </td> 
+            <td> 
+                <input type="number" name="order_id" required> 
+                </td>
+        </tr>
+    </table>
+    <button type="submit">
+        Save
+    </button>
+</form>
