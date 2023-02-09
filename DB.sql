@@ -166,4 +166,3 @@ INSERT INTO orderdetail(price, qty, product_id, order_id) VALUES (1000.00, 1, 5,
 INSERT INTO packaging(tracking_number, shipper, packagingweight, packaginglength, packagingwidth, order_id) VALUES ("098765432", "UPS", "275 lbs", "50 Inches", "26 Inches", 5);
 
 INSERT INTO review(reviewdate, comments, rating, status, customer_id, product_id) VALUES ("2023-01-10", "Good desk", 5, "Publish", 5, 5);
-

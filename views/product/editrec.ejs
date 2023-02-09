@@ -1,0 +1,88 @@
+<h1> 
+    Edit Product
+</h1>
+
+<form action="/product/save" method="post">
+    <input type="hidden" name="product_id" value="<%= onerec.product_id %>" >
+
+    <table>
+        <tr> 
+            <td> Name: </td> 
+            <td> 
+                <input type="text" name="productname" value="<%= onerec.productname %>" required> 
+            </td> 
+        </tr> 
+        <tr> 
+            <td> Image: </td> 
+            <td> 
+                <input type="text" name="productimage" value="<%= onerec.productimage %>" required> 
+            </td> 
+        </tr>
+        <tr> 
+            <td> Description: </td> 
+            <td> 
+                <textarea name="description" rows="10" cols="30"> 
+                    <%= onerec.description %>
+                </textarea> 
+            </td>
+        </tr>
+        <tr> 
+            <td> Weight: </td> 
+            <td> 
+                <input type="text" name="weight" value="<%= onerec.weight %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Length: </td> 
+            <td> 
+                <input type="text" name="length" value="<%= onerec.length %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Width: </td> 
+            <td> 
+                <input type="text" name="width" value="<%= onerec.width %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Price: </td> 
+            <td> 
+                <input type="text" name="price" value="<%= onerec.price %>" required>  
+            </td> 
+        </tr>
+        <tr> 
+            <td> Status: </td> 
+            <td> 
+                <select  name="status"  required>
+                    <option selected>
+                        <%= onerec.status %>
+                    </option>
+                    <option>
+                        Available
+                    </option>
+                    <option>
+                        Contingent
+                    </option>
+                    <option>
+                        Coming Soon
+                    </option>
+                </select> 
+            </td> 
+        </tr>
+        <tr> 
+            <td> PackagingID: </td> 
+            <td> 
+                <input type="number" name="packaging_id" value="<%= onerec.packaging_id %>" required> 
+            </td> 
+        </tr>
+        <tr> 
+            <td> CategoryID: </td> 
+            <td> 
+                <input type="number" name="category_id" value="<%= onerec.category_id %>" required> 
+            </td>
+        </tr>
+    </table>
+    <button type="submit">
+        Save
+    </button>
+</form>
