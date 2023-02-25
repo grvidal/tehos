@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>index</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>TEHOS</h1>
-    <h2>The Executive Home Office Setup</h2>
-    <p>By: Gerardo Vidal</p>
-  </body>
-</html>
+<p> Welcome to TEHOS, The Executive Home Office Products co.</p>
+
+<table width="100%">
+  <tr>
+    <td width="80%">
+      <% if (allrecs.length > 0) 
+      {%>
+        <% allrecs.forEach((recref, index) => 
+        {%>
+            <product>
+                <table>
+                  <tr>
+                    <td><%= recref.productname %></td>
+                  </tr> 
+                  <tr> 
+                    <td colspan="2">
+                      <%= recref.productimage %>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td colspan="2">
+                      <%= recref.description %>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td><%= recref.weight %></td>
+                    <td><%= recref.length %></td>
+                  </tr> 
+                  <tr> 
+                    <td><%= recref.width %></td>
+                    <td><%= recref.price %></td>
+                  </tr> 
+                  <tr> 
+                    <td><%= recref.status %></td>
+                    <td><%= recref.packaging_id %></td>
+                    <td><%= recref.category_id %></td>
+                    <td>
+                      <a href='/product/<%= recref.product_id %>/show'>
+                        Details
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+            </product>
+        <% }); %>
+      <% } %>
+    </td>
+    <td width="20%">
+      <% if (promos.length > 0) {%>
+        <% promos.forEach((recref, index) => { %>
+          <img src="/images/<%= recref.promoimage %>" width="250" height="250">
+        <% }); %>
+      <% } %>
+    </td>
+  </tr>
+</table>

@@ -77,6 +77,17 @@ CREATE TABLE review(
 	FOREIGN KEY (product_id) REFERENCES product(product_id) ON DELETE CASCADE ON UPDATE RESTRICT
 	);
 
+CREATE TABLE promotion(
+	promotion_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	promotitle VARCHAR(50) NOT NULL,
+	promoimage VARCHAR(20) NOT NULL,
+	description VARCHAR(200) NOT NULL,
+	startdate DATE NOT NULL,
+	enddate DATE NOT NULL,
+	discountrate DECIMAL(5,2)
+);
+
+
 /*
  1st Sample record
 */

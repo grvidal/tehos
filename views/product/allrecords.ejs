@@ -1,7 +1,7 @@
 <% if (allrecs.length > 0) {%>
     <table border="1">
             <tr>
-                <th> ProductID </th>
+                <th> Product ID </th>
                 <th> Name </th>
                 <th> Image </th>
                 <th> Description </th>
@@ -10,8 +10,9 @@
                 <th> Width </th>
                 <th> Price </th>
                 <th> Status </th>
-                <th> PackagingID </th>
-                <th> CategoryID </th>
+                <th> Packaging ID </th>
+                <th> Category ID </th>
+                <th> Homepage? </th>
             </tr>
         <% allrecs.forEach((recref, index) => { %>
             <tr>
@@ -22,10 +23,11 @@
                 <td><%= recref.weight %></td>
                 <td><%= recref.length %></td>
                 <td><%= recref.width %></td>
-                <td><%= recref.price %></td>
+                <td><%= Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recref.price) %></td>
                 <td><%= recref.status %></td>
                 <td><%= recref.packaging_id %></td>
                 <td><%= recref.category_id %></td>
+                <td><%= recref.homepage %></td>
                 <td>
                     <a href='/product/<%= recref.product_id %>/show'> 
                         Details
@@ -47,7 +49,7 @@
 <% } 
 
 else { %>
-    <p>Not Records Available</p>
+    <p>No Records Available</p>
 <% } %>
 
 <p> 

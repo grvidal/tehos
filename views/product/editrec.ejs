@@ -51,6 +51,12 @@
             </td> 
         </tr>
         <tr> 
+            <td> Homepage?: </td> 
+            <td> 
+                <input type="checkbox" name="homepage" value="<%= onerec.homepage %>">  
+            </td> 
+        </tr>
+        <tr> 
             <td> Status: </td> 
             <td> 
                 <select  name="status"  required>
@@ -77,8 +83,20 @@
         </tr>
         <tr> 
             <td> CategoryID: </td> 
-            <td> 
-                <input type="number" name="category_id" value="<%= onerec.category_id %>" required> 
+            <td>
+                <select name="category_id" required>
+                    <option selected> </option>
+                        <% for (var i = 0; i < category.length; i++) { %> 
+                            <% if (category[i].category_id == onerec.category_id) { %>
+                                <option selected value=<%= category[i].category_id %>> 
+                                    <%= category[i].categoryname %>
+                                </option>
+                            <% } else { %>
+                                <option value=<%= category[i].category_id %>>
+                                    <%= category[i].categoryname %>
+                                </option> 
+                        <% } }%>      
+                </select>
             </td>
         </tr>
     </table>

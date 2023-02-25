@@ -47,6 +47,12 @@
             </td> 
         </tr>
         <tr> 
+            <td> Homepage?: </td> 
+            <td> 
+                <input type="checkbox" name="homepage"> 
+            </td>
+        </tr>
+        <tr> 
             <td> Status: </td> 
             <td> 
                 <select  name="status"  required>
@@ -66,16 +72,27 @@
             </td> 
         </tr>
         <tr> 
-            <td> PackagingID: </td> 
+            <td> Packaging ID: </td> 
             <td> 
                 <input type="number" name="packaging_id" required> 
             </td> 
         </tr>
         <tr> 
-            <td> CategoryID: </td> 
-            <td> 
-                <input type="number" name="category_id" required> 
-                </td>
+            <td> Category ID: </td> 
+            <td>
+                <select name="category_id" required>
+                    <option selected disabled>
+                        Choose Category
+                    </option>
+                    <optgroup label="Select Category">
+                        <% for (var i = 0; i < category.length; i++) { %> 
+                            <option value=<%= category[i].category_id %>> 
+                                <%= category[i].categoryname %> 
+                            </option>
+                        <% } %>
+                    </optgroup>
+                </select>
+            </td>
         </tr>
     </table>
     <button type="submit">

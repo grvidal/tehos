@@ -1,0 +1,27 @@
+<h2>Sales Listing</h2>
+
+<% if (allrecs.length > 0) {%>
+    <table border="1">
+            <tr>
+                <th> Order ID </th>
+                <th> Sale Date </th>
+                <th> Payment Status </th>
+                <th> Authorization Num </th>
+                <th> Customer ID </th>
+            </tr>
+        <% allrecs.forEach((recref, index) => { %>
+            <tr>
+                <td><%= recref.order_id %></td>
+                <td><%= recref.saledate %></td>
+                <td><%= recref.paymentstatus %></td>
+                <td><%= recref.authorizationnum %></td>
+                <td><%= recref.customer_id %></td>
+            </tr>
+        <% }); %>
+    </table>
+<% } 
+
+else { %>
+    <p>No Records Available</p>
+<% } %>
+

@@ -6,7 +6,7 @@ var logger = require('morgan');
 var layouts = require('express-ejs-layouts');
 var dotenv = require('dotenv');
 dotenv.config();
-
+const session = require('express-session');
 
 const mariadb = require('mariadb/callback');
 
@@ -46,6 +46,9 @@ var saleorderRouter = require('./routes/saleorder');
 var orderdetailRouter = require('./routes/orderdetail');
 var packagingRouter = require('./routes/packaging');
 var reviewRouter = require('./routes/review');
+var searchRouter = require('./routes/search');
+var reportRouter = require('./routes/report');
+var catalogRouter = require('./routes/catalog');
 
 var app = express();
 
@@ -58,6 +61,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({secret: 'TehosAppSecret'})); 
+app.use(function(req,res,next)
+{
+  res.locals.session = req.session;
+  next(); 
+});
+
 app.use(layouts);
 
 app.use('/', indexRouter);
@@ -72,6 +83,9 @@ app.use('/saleorder', saleorderRouter);
 app.use('/orderdetail', orderdetailRouter);
 app.use('/packaging', packagingRouter);
 app.use('/review', reviewRouter);
+app.use('/search', searchRouter);
+app.use('/report', reportRouter);
+app.use('/catalog', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

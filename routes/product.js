@@ -8,7 +8,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) 
 {
-     let query = "SELECT product_id, productname, productimage, description, weight, length, width, price, status, packaging_id, category_id FROM product";
+     let query = "SELECT product_id, productname, productimage, description, weight, length, width, price, status, packaging_id, category_id, homepage FROM product";
 
     // execute query
     db.query(query, (err, result) => 
@@ -31,7 +31,7 @@ router.get('/', function(req, res, next)
 
 router.get('/:recordid/show', function(req, res, next) 
 {
-    let query = "SELECT product_id, productname, productimage, description, weight, length, width, price, status, packaging_id, category_id FROM product WHERE product_id = " + req.params.recordid;
+    let query = "SELECT product_id, productname, productimage, description, weight, length, width, price, status, packaging_id, category_id, homepage FROM product WHERE product_id = " + req.params.recordid;
 
     // execute query
     db.query(query, (err, result) => 
@@ -56,7 +56,17 @@ router.get('/:recordid/show', function(req, res, next)
 
 router.get('/addrecord', function(req, res, next) 
 {
-    res.render('product/addrec');
+    let query = "SELECT category_id, categoryname FROM category";
+
+    db.query(query, (err, result) => 
+    {
+        if (err) 
+        {
+            console.log(err);
+            res.render('error');
+        }
+        res.render('product/addrec', {category: result});
+    });
 });
 
 
@@ -66,10 +76,16 @@ router.get('/addrecord', function(req, res, next)
 
 router.post('/', function(req, res, next) 
 {
-    let insertquery = "INSERT INTO product (productname, productimage, description, weight, length, width, price, status, packaging_id, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-             
+    let insertquery = "INSERT INTO product (productname, productimage, description, weight, length, width, price, status, packaging_id, category_id, homepage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    var homepage_value=0;
+    if (req.body.homepage)
+        {
+           homepage_value = 1;
+        }
+    
     db.query(insertquery,
-        [req.body.productname, req.body.productimage, req.body.description,req.body.weight, req.body.length, req.body.width, req.body.price, req.body.status,req.body.packaging_id, req.body.category_id],
+        [req.body.productname, req.body.productimage, req.body.description,req.body.weight, req.body.length, req.body.width, req.body.price, req.body.status,req.body.packaging_id, req.body.category_id, homepage_value],
         (err, result) => 
         { 
             if (err) 
@@ -93,7 +109,7 @@ router.post('/', function(req, res, next)
 
 router.get('/:recordid/edit', function(req, res, next) 
 {
-    let query = "SELECT product_id, productname, productimage, description, weight, length, width, price, status, packaging_id, category_id FROM product WHERE product_id = " + req.params.recordid;
+    let query = "SELECT product_id, productname, productimage, description, weight, length, width, price, status, packaging_id, category_id, homepage FROM product WHERE product_id = " + req.params.recordid;
       
     // execute query
     db.query(query, (err, result) => 
@@ -103,9 +119,21 @@ router.get('/:recordid/edit', function(req, res, next)
             console.log(err);
             res.render('error');
        } 
+       
        else 
        {
-            res.render('product/editrec', {onerec: result[0] });
+            let query = "SELECT category_id, categoryname FROM category";
+
+            db.query(query, (err, result2) => 
+            {
+                if (err) 
+                {
+                    console.log(err);
+                    res.render('error');
+                }
+
+                res.render('product/editrec', {onerec: result[0], category: result2 });
+            });
        }
     });    
 });
@@ -118,10 +146,16 @@ router.get('/:recordid/edit', function(req, res, next)
 
 router.post('/save', function(req, res, next) 
 {
-    let updatequery = "UPDATE product SET productname = ?, productimage = ?, description = ?, weight = ?, length = ?, width = ?, price = ?, status = ?, packaging_id = ?, category_id = ? WHERE product_id = " + req.body.product_id;
+    let updatequery = "UPDATE product SET productname = ?, productimage = ?, description = ?, weight = ?, length = ?, width = ?, price = ?, status = ?, packaging_id = ?, category_id = ?, homepage = ? WHERE product_id = " + req.body.product_id;
+
+    var homepage_value=0;
+    if (req.body.homepage)
+        {
+           homepage_value = 1;
+        }
 
     db.query(updatequery,
-        [req.body.productname, req.body.productimage, req.body.description, req.body.weight, req.body.length, req.body.width, req.body.price, req.body.status, req.body.packaging_id, req.body.category_id],
+        [req.body.productname, req.body.productimage, req.body.description, req.body.weight, req.body.length, req.body.width, req.body.price, req.body.status, req.body.packaging_id, req.body.category_id, homepage_value],
         (err, result) => 
         {
             if (err) 

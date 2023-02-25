@@ -21,7 +21,7 @@
         <tr> 
             <td> Date of Birth: </td> 
             <td> 
-                <input type="date" name="dob" value="<%= onerec.dob %>" required> 
+                <input type="date" name="dob" value="<%= onerec.dob.toISOString().split('T')[0] %>" required> 
             </td> 
         </tr> 
         <tr> 
