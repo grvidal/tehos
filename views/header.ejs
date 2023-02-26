@@ -9,10 +9,30 @@
             <h1>TEHOS</h1>
         </td>
         <td width='10%' align='center'>
-            Login Control
+            <% if(session.customer_id > 0) 
+            { %>
+                <b> 
+                    <b> 
+                        <%= session.custname %>! 
+                        <a href='/customer/logout'>Logout</a>
+                    </b> 
+                </br>
+            <% } 
+            else 
+            { %>
+                <a href='/customer/register'>
+                    New Customer
+                </a> 
+                </br> 
+                <a href='/customer/login'>
+                    Login
+                </a>
+            <% } %>
         </td>
         <td width='10%' align='center'> 
-            Cart Control
+            <a href="/catalog/cart">
+                Cart
+            </a>
         </td>
     </tr>
 </table>
