@@ -2,6 +2,11 @@
     Details 
 </h1>
 
+<form action="/review/custsubmit" method="post">
+    <input type="hidden" name="product_id" value="<%= onerec.product_id %>" >
+    <input type="submit" value="Submit Review">
+</form>
+
 <table>
      <tr> 
          <td> Product ID: </td> 
@@ -52,3 +57,33 @@
         <td> <%= onerec.homepage %> </td> 
    </tr>
 </table>
+
+<hr>
+
+<h2>
+    Product Reviews
+</h2>
+
+<% if (reviews.length > 0) {%>
+    <table border="1">
+     
+            <tr>
+                <th> Customer ID </th>
+                <th> Review Date </th>
+                <th> Rating </th>
+                <th> Comments </th>
+            </tr>
+        <% reviews.forEach((recref, index) => { %>
+            <tr>
+                <td><%= recref.customer_id %></td>
+                <td><%= recref.reviewdate %></td>
+                <td><%= recref.rating %></td>
+                <td><%= recref.comments %></td>
+            </tr>
+        <% }); %>
+    </table>
+<% } 
+else { %>
+    <p>No Reviews Available</p>
+<% } %>
+

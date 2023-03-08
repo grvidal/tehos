@@ -54,7 +54,6 @@ router.post('/add', function(req, res, next)
         req.session.qty = qty;
     }
     res.redirect('/catalog/cart');
-    
 });
 
 

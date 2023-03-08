@@ -2,6 +2,14 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
 
+function adminonly(req,res,next)
+{
+  if (!req.session.isadmin)
+  {
+    return res.redirect('customer/login');
+  }
+  next();
+}
 
 // ================================================== 
 // Route Provide Login Window
@@ -19,7 +27,7 @@ router.get('/login', function(req, res, next)
 // ================================================== 
 router.post('/login', function(req, res, next) 
 {
-    let query = "select customer_id, firstname, lastname, passcode from customer WHERE username = '" + req.body.username + "'"; 
+    let query = "select customer_id, firstname, lastname, passcode, isadmin from customer WHERE username = '" + req.body.username + "'"; 
     // execute query
     db.query(query, (err, result) => 
     {
@@ -32,15 +40,23 @@ router.post('/login', function(req, res, next)
             if(result[0])
             {
                 // Username was correct. Check if password is correct 
-                bcrypt.compare(req.body.passcode, result[0].passcode, function(err, result1) 
+                bcrypt.compare(req.body.passcode, result[0].passcode, 
+                function(err, result1) 
                 {
                     if(result1) 
                     {
                         // Password is correct. Set session variables for user.
+                        var isadmin = false;
+                        req.session.isadmin = isadmin;
                         var custid = result[0].customer_id;
                         req.session.customer_id = custid;
                         var custname = result[0].firstname + " "+ result[0].lastname; 
                         req.session.custname = custname;
+                        if(result[0].isadmin)
+                        {
+                            req.session.isadmin = true;
+                        }
+
                         res.redirect('/');
                     }
                     else 
@@ -61,6 +77,7 @@ router.post('/login', function(req, res, next)
 
 // ================================================== 
 // Route Check Login Credentials
+// URL: http://localhost:3033/customer/logout
 // ================================================== 
 router.get('/logout', function(req, res, next) 
 {
@@ -68,6 +85,7 @@ router.get('/logout', function(req, res, next)
     req.session.custname = ""; 
     req.session.cart=[]; 
     req.session.qty=[]; 
+    req.session.isadmin = false;
     res.redirect('/');
 });
 
@@ -76,7 +94,7 @@ router.get('/logout', function(req, res, next)
 // Route to list all records. Display view to list all records 
 // URL: http://localhost:3033/customer/
 // ==================================================
-router.get('/', function(req, res, next) 
+router.get('/', adminonly, function(req, res, next) 
 {
      let query = "SELECT customer_id, firstname, lastname, city, state  FROM customer";
 
@@ -98,7 +116,7 @@ router.get('/', function(req, res, next)
 // Route to view one specific record. Notice the view is one record 
 // URL: http://localhost:3033/customer/2/show
 // ================================================== 
-router.get('/:recordid/show', function(req, res, next) 
+router.get('/:recordid/show', adminonly, function(req, res, next) 
 {
     let query = "SELECT customer_id, firstname, lastname, dob, email, phone, address1, address2, city, state, zip, username, passcode FROM customer WHERE customer_id = " + req.params.recordid;
 
@@ -132,7 +150,7 @@ router.get('/register', function(req, res, next)
 // Route to show empty form to obtain input form end-user.
 // URL: http://localhost:3033/customer/addrecord
 // ==================================================
-router.get('/addrecord', function(req, res, next) 
+router.get('/addrecord', adminonly, function(req, res, next) 
 {
     res.render('customer/addrec');
 });
@@ -177,7 +195,7 @@ router.post('/', function(req, res, next)
 // Route to edit one specific record.
 // URL: http://localhost:3033/customer/2/edit
 // ================================================== 
-router.get('/:recordid/edit', function(req, res, next) 
+router.get('/:recordid/edit', adminonly, function(req, res, next) 
 {
     let query = "SELECT customer_id, firstname, lastname, dob, email, phone, address1, address2, city, state, zip, username, passcode FROM customer WHERE customer_id = " + req.params.recordid;
       
@@ -201,7 +219,7 @@ router.get('/:recordid/edit', function(req, res, next)
 // ================================================== 
 // Route to save edited data in database.
 // ================================================== 
-router.post('/save', function(req, res, next) 
+router.post('/save', adminonly, function(req, res, next) 
 {
     let updatequery = "UPDATE customer SET firstname = ?, lastname = ?, dob = ?, email = ?, phone = ?, address1 = ?, address2 = ?, city = ?, state = ?, zip = ?, username = ?, passcode = ? WHERE customer_id = " + req.body.customer_id;
 
@@ -226,7 +244,7 @@ router.post('/save', function(req, res, next)
 // Route to delete one specific record.
 // URL: http://localhost:3033/customer/2/delete
 // ================================================== 
-router.get('/:recordid/delete', function(req, res, next) 
+router.get('/:recordid/delete', adminonly, function(req, res, next) 
 {
     let query = "DELETE FROM customer WHERE customer_id = " +  req.params.recordid;
 

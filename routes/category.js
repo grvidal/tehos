@@ -1,12 +1,21 @@
 var express = require('express');
 var router = express.Router();
 
+function adminonly(req,res,next)
+{
+  if (!req.session.isadmin)
+  {
+    return res.redirect('customer/login');
+  }
+  next();
+}
+
 // ==================================================
 // Route to list all records. Display view to list all records 
 // URL: http://localhost:3033/category/
 // ==================================================
 
-router.get('/', function(req, res, next) 
+router.get('/', adminonly, function(req, res, next) 
 {
      let query = "SELECT category_id, categoryname, description FROM category";
 
@@ -54,7 +63,7 @@ router.get('/:recordid/show', function(req, res, next)
 // URL: http://localhost:3033/category/addrecord
 // ==================================================
 
-router.get('/addrecord', function(req, res, next) 
+router.get('/addrecord', adminonly, function(req, res, next) 
 {
     res.render('category/addrec');
 });
@@ -64,7 +73,7 @@ router.get('/addrecord', function(req, res, next)
 // Route to obtain user input and save in database. 
 // ================================================== 
 
-router.post('/', function(req, res, next) 
+router.post('/', adminonly, function(req, res, next) 
 {
     let insertquery = "INSERT INTO category (categoryname, description) VALUES (?, ?)";
              
@@ -91,7 +100,7 @@ router.post('/', function(req, res, next)
 // URL: http://localhost:3033/category/2/edit
 // ================================================== 
 
-router.get('/:recordid/edit', function(req, res, next) 
+router.get('/:recordid/edit', adminonly, function(req, res, next) 
 {
     let query = "SELECT category_id, categoryname, description FROM category WHERE category_id = " + req.params.recordid;
       
@@ -116,7 +125,7 @@ router.get('/:recordid/edit', function(req, res, next)
 // Route to save edited data in database.
 // ================================================== 
 
-router.post('/save', function(req, res, next) 
+router.post('/save', adminonly, function(req, res, next) 
 {
     let updatequery = "UPDATE category SET categoryname = ?, description = ? WHERE category_id = " + req.body.category_id;
 
@@ -142,7 +151,7 @@ router.post('/save', function(req, res, next)
 // URL: http://localhost:3033/category/2/delete
 // ================================================== 
 
-router.get('/:recordid/delete', function(req, res, next) 
+router.get('/:recordid/delete', adminonly, function(req, res, next) 
 {
     let query = "DELETE FROM category WHERE category_id = " +  req.params.recordid;
 

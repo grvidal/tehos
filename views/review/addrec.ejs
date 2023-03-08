@@ -19,7 +19,11 @@
         <tr> 
             <td> Rating: </td> 
             <td> 
-                <input type="number" name="rating" required>  
+                <input type="radio" name="rating" value="1"> ★ <br/>
+                <input type="radio" name="rating" value="2"> ★★ <br/>
+                <input type="radio" name="rating" value="3"> ★★★ <br/>
+                <input type="radio" name="rating" value="4"> ★★★★ <br/>
+                <input type="radio" name="rating" value="5" checked="true" > ★★★★★<br/>
             </td>
         </tr>
         <tr> 
@@ -30,10 +34,10 @@
                         Publish
                     </option>
                     <option>
-                        Contingent
+                        Internal
                     </option>
                     <option>
-                        Coming Soon
+                        Review
                     </option>
                 </select> 
             </td> 
